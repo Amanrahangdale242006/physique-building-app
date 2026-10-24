@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuraSculpt AI — Vision Calorie Tracker & Precision Physique Architect</title>
+  <meta name="description" content="AI-powered visual meal calorie tracker and precision physique transformation architect. Scan meals, track macros, and build your ideal physique.">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00F2FE">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AuraSculpt AI">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- Interactive Confetti Overlay Canvas -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <div class="app-layout">
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="brand-logo">
+          <div class="logo-icon-wrapper">
+            <svg class="logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00F2FE" />
+                  <stop offset="50%" stop-color="#4FACFE" />
+                  <stop offset="100%" stop-color="#7F00FF" />
+                </linearGradient>
+              </defs>
+              <circle cx="16" cy="16" r="14" stroke="url(#logoGrad)" stroke-width="2.5" fill="none" opacity="0.3"/>
+              <path d="M16 6L21 15H11L16 6Z" fill="url(#logoGrad)"/>
+              <path d="M16 26L11 17H21L16 26Z" fill="url(#logoGrad)"/>
+              <circle cx="16" cy="16" r="3" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">AuraSculpt<span class="accent-dot">.AI</span></span>
+            <span class="brand-sub">Vision & Physique Engine</span>
+          </div>
+        </div>
+
+        <div class="active-archetype-pill" id="activeArchetypeBadge" title="Click to modify physique plan">
+          <span class="pulse-indicator"></span>
+          <span class="archetype-label" id="headerArchetypeName">Clean Hypertrophy</span>
+        </div>
+      </div>
+
+      <div class="header-center">
+        <nav class="nav-tabs">
+          <button class="nav-tab-btn active" data-tab="dashboard" id="tabNavDashboard">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="scanner" id="tabNavScanner">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>AI Meal Vision</span>
+            <span class="badge-sparkle">AI</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="workouts" id="tabNavWorkouts">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5l11 11M4 9l2-2 3 3-2 2-3-3zm11 11l2-2 3 3-2 2-3-3zM3 18l3-3M18 3l3 3"/></svg>
+            <span>Workouts</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="leagues" id="tabNavLeagues">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H8v2h8v-2h-1c-.55 0-1-.45-1-1v-2.34c2.84-.48 5-2.94 5-5.96V4H6v4.7c0 3.02 2.16 5.48 5 5.96z"/></svg>
+            <span>Leagues</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="physique" id="tabNavPhysique">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            <span>Physique</span>
+          </button>
+          <button class="nav-tab-btn" data-tab="coach" id="tabNavCoach">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>AI Coach</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <!-- Audio FX Synthesizer Toggle -->
+        <button class="btn-icon-secondary" id="soundToggleBtn" title="Toggle Synthesized Audio FX (Clicks, Lasers, Fanfares)">
+          <span id="soundToggleIcon">🔊</span>
+        </button>
+
+        <!-- Install PWA Button on Mobile / Chrome -->
+        <button class="btn-install-pill hidden" id="installAppBtn" title="Install AuraSculpt on Android / Phone">
+          <span>📲 Install App</span>
+        </button>
+
+        <!-- Google Play Store & Cloud Deployment Hub -->
+        <button class="btn-publish-pill" id="openPublishModalBtn" title="Publish to Google Play Store & Deploy Free Cloud HTTPS">
+          <span class="play-icon">▶</span>
+          <span>Deploy / Play Store</span>
+        </button>
+
+        <!-- League Rank Header Pill -->
+        <div class="league-header-pill" id="headerLeaguePill" title="Your current League Rank & RP">
+          <span class="league-icon" id="headerLeagueIcon">💎</span>
+          <span class="league-name" id="headerLeagueName">Diamond</span>
+          <span class="league-rp" id="headerLeagueRP">2,450 RP</span>
+        </div>
+
+        <div class="streak-badge" title="Daily Consistency Streak">
+          <span class="flame-icon">🔥</span>
+          <span class="streak-count" id="streakDays">6 Days</span>
+        </div>
+
+        <button class="btn-icon-secondary" id="openSettingsBtn" title="Gemini API & App Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+
+        <button class="btn-primary-action" id="quickScanHeaderBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+          <span>Scan Meal</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="app-main">
+
+      <!-- ================= 1. DASHBOARD VIEW ================= -->
+      <section class="tab-pane active" id="pane-dashboard">
+        <!-- Top Hero Grid: Calorie Ring + Macros Overview -->
+        <div class="dashboard-hero-grid">
+          
+          <!-- Calorie Target Visualizer Card -->
+          <div class="card glass-card calorie-hero-card">
+            <div class="card-header-subtle">
+              <span class="card-eyebrow">TODAY'S ENERGY BALANCE</span>
+              <span class="date-chip" id="currentDateDisplay">Today</span>
+            </div>
+            
+            <div class="calorie-ring-wrapper">
+              <svg class="calorie-svg" viewBox="0 0 240 240">
+                <circle class="ring-bg" cx="120" cy="120" r="95" stroke-width="16" />
+                <circle class="ring-progress" id="calorieProgressRing" cx="120" cy="120" r="95" stroke-width="16" stroke-dasharray="596.9" stroke-dashoffset="220" />
+              </svg>
+              <div class="calorie-inner-data">
+                <span class="calorie-val" id="caloriesRemainingVal">1,120</span>
+                <span class="calorie-label">KCAL REMAINING</span>
+                <div class="calorie-sub-pill">
+                  <span id="caloriesConsumedVal">1,680</span> / <span id="caloriesTargetVal">2,800</span> kcal
+                </div>
+              </div>
+            </div>
+
+            <div class="energy-breakdown-row">
+              <div class="energy-stat-box">
+                <span class="energy-lbl">Consumed</span>
+                <span class="energy-num color-emerald" id="statConsumedKcal">1,680</span>
+              </div>
+              <div class="energy-stat-box">
+                <span class="energy-lbl">Active Burn</span>
+                <span class="energy-num color-amber" id="statBurnedKcal">+450</span>
+              </div>
+              <div class="energy-stat-box">
+                <span class="energy-lbl">Net Surplus</span>
+                <span class="energy-num color-cyan" id="statSurplusStatus">+210 kcal</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Macros Progress Grid -->
+          <div class="card glass-card macros-hero-card">
+            <div class="card-header-subtle">
+              <span class="card-eyebrow">MACRONUTRIENT TARGETS</span>
+              <span class="physique-meta-tag" id="macroGoalDesc">Lean Hypertrophy Ratio (40P / 40C / 20F)</span>
+            </div>
+
+            <div class="macros-bars-list">
+              <!-- Protein (Muscle Synthesis) -->
+              <div class="macro-row-item protein-item">
+                <div class="macro-info-head">
+                  <div class="macro-title-group">
+                    <span class="macro-dot protein-dot"></span>
+                    <span class="macro-name">Protein</span>
+                    <span class="macro-role-tag">Muscle Growth</span>
+                  </div>
+                  <div class="macro-numbers">
+                    <span class="macro-current" id="macroProteinCurrent">142</span>
+                    <span class="macro-divider">/</span>
+                    <span class="macro-target" id="macroProteinTarget">190g</span>
+                    <span class="macro-pct" id="macroProteinPct">74%</span>
+                  </div>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill protein-fill" id="macroProteinBar" style="width: 74%;"></div>
+                </div>
+              </div>
+
+              <!-- Carbs (Workout Fuel & Glycogen) -->
+              <div class="macro-row-item carbs-item">
+                <div class="macro-info-head">
+                  <div class="macro-title-group">
+                    <span class="macro-dot carbs-dot"></span>
+                    <span class="macro-name">Carbohydrates</span>
+                    <span class="macro-role-tag">Training Energy</span>
+                  </div>
+                  <div class="macro-numbers">
+                    <span class="macro-current" id="macroCarbsCurrent">175</span>
+                    <span class="macro-divider">/</span>
+                    <span class="macro-target" id="macroCarbsTarget">280g</span>
+                    <span class="macro-pct" id="macroCarbsPct">62%</span>
+                  </div>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill carbs-fill" id="macroCarbsBar" style="width: 62%;"></div>
+                </div>
+              </div>
+
+              <!-- Fats (Hormone & Testosterone Support) -->
+              <div class="macro-row-item fats-item">
+                <div class="macro-info-head">
+                  <div class="macro-title-group">
+                    <span class="macro-dot fats-dot"></span>
+                    <span class="macro-name">Healthy Fats</span>
+                    <span class="macro-role-tag">Hormonal Health</span>
+                  </div>
+                  <div class="macro-numbers">
+                    <span class="macro-current" id="macroFatsCurrent">44</span>
+                    <span class="macro-divider">/</span>
+                    <span class="macro-target" id="macroFatsTarget">65g</span>
+                    <span class="macro-pct" id="macroFatsPct">67%</span>
+                  </div>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill fats-fill" id="macroFatsBar" style="width: 67%;"></div>
+                </div>
+              </div>
+
+              <!-- Hydration & Water -->
+              <div class="macro-row-item water-item">
+                <div class="macro-info-head">
+                  <div class="macro-title-group">
+                    <span class="macro-dot water-dot"></span>
+                    <span class="macro-name">Hydration</span>
+                    <span class="macro-role-tag">Cell Volumization</span>
+                  </div>
+                  <div class="macro-numbers">
+                    <span class="macro-current" id="macroWaterCurrent">2.4</span>
+                    <span class="macro-divider">/</span>
+                    <span class="macro-target" id="macroWaterTarget">3.5 L</span>
+                    <span class="macro-pct" id="macroWaterPct">68%</span>
+                  </div>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill water-fill" id="macroWaterBar" style="width: 68%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hydration Quick Controls -->
+            <div class="water-quick-add">
+              <span class="water-add-label">Quick Hydration:</span>
+              <button class="btn-micro-chip" onclick="app.addWater(250)">+250ml</button>
+              <button class="btn-micro-chip" onclick="app.addWater(500)">+500ml</button>
+              <button class="btn-micro-chip" onclick="app.addWater(750)">+750ml</button>
+            </div>
+          </div>
+
+          <!-- Daily Physique Coach Tip Banner -->
+          <div class="card glass-card coach-daily-widget">
+            <div class="widget-avatar-row">
+              <div class="coach-avatar-glow">⚡</div>
+              <div>
+                <h4 class="coach-widget-title">Physique Readiness Engine</h4>
+                <p class="coach-widget-subtitle">Intelligent nutrient timing feedback</p>
+              </div>
+            </div>
+            <div class="coach-bubble-box" id="dailyCoachTipText">
+              "Great protein distribution so far! You are 48g away from your hyper-growth goal. Aim for 35g protein and 40g complex carbs in your post-workout window."
+            </div>
+            <div class="widget-actions">
+              <button class="btn-secondary-sm" id="btnAskCoachFast">Ask Coach for Dinner Idea</button>
+              <button class="btn-primary-sm" id="btnOpenScanFromDash">📸 Scan Next Meal</button>
+            </div>
+        </div>
+
+        <!-- Dashboard League Rank Banner -->
+        <div class="card glass-card dash-league-banner" id="dashLeagueCard">
+          <div class="dash-league-left">
+            <div class="dash-league-crest" id="dashLeagueIcon">💎</div>
+            <div class="dash-league-text">
+              <div class="dash-league-eyebrow">
+                <span class="card-eyebrow">PHYSIQUE LEAGUE PROGRESSION</span>
+                <span class="league-sub-pill" id="dashLeagueTier">Tier III</span>
+              </div>
+              <h3 class="dash-league-title" id="dashLeagueTitle">Diamond League • 2,450 RP</h3>
+              <p class="dash-league-sub" id="dashLeagueSub">Earn 550 RP more by logging meals & finishing workouts to rank up to <strong>Heroic League</strong>!</p>
+            </div>
+          </div>
+          <div class="dash-league-right">
+            <div class="dash-league-bar-wrap">
+              <div class="dash-league-bar-fill" id="dashLeagueBarFill" style="width: 81%;"></div>
+            </div>
+            <button class="btn-secondary-sm btn-view-ladder" onclick="app.switchTab('leagues')">View League Ladder 🏆</button>
+          </div>
+        </div>
+
+        <!-- Meals Log Section -->
+        <div class="meals-log-section">
+          <div class="section-title-row">
+            <div>
+              <h2 class="section-h2">Logged Meals Today</h2>
+              <p class="section-sub">Meals analyzed and logged with nutrition breakdown</p>
+            </div>
+            <div class="section-action-group">
+              <button class="btn-secondary-sm" id="clearDemoDataBtn">Reset Day</button>
+              <button class="btn-primary-sm" id="btnLogManualMeal">+ Add Manual Meal</button>
+            </div>
+          </div>
+
+          <div class="logged-meals-grid" id="loggedMealsList">
+            <!-- Meal cards populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. AI MEAL VISION SCANNER ================= -->
+      <section class="tab-pane" id="pane-scanner">
+        <div class="scanner-container">
+          
+          <div class="scanner-left-col">
+            <!-- Camera / Photo Upload Frame -->
+            <div class="card glass-card vision-capture-card">
+              <div class="vision-header">
+                <div>
+                  <h3 class="card-title">AI Food Recognition Hub</h3>
+                  <p class="card-desc">Upload a photo, snap live with camera, or select a demo meal</p>
+                </div>
+                <div class="engine-badge-pill" id="activeVisionEngineBadge">
+                  <span class="engine-indicator"></span>
+                  <span id="visionEngineLabel">Neural Vision Engine</span>
+                </div>
+              </div>
+
+              <!-- Media Viewport / Canvas Area -->
+              <div class="image-drop-viewport" id="imageDropArea">
+                <!-- Overlay canvas for bounding boxes & tags -->
+                <div class="canvas-wrapper" id="canvasWrapper">
+                  <img id="previewImage" src="" alt="Meal preview" class="preview-img hidden">
+                  <video id="cameraVideo" autoplay playsinline class="camera-stream hidden"></video>
+                  <div class="bounding-overlay" id="boundingOverlay"></div>
+                </div>
+
+                <!-- Dropzone Placeholder when no image loaded -->
+                <div class="dropzone-empty-state" id="dropzoneEmpty">
+                  <div class="upload-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+                  </div>
+                  <h4>Drag & Drop your meal photo here</h4>
+                  <p>Supports JPG, PNG, WEBP — or take a live camera shot</p>
+                  
+                  <div class="viewport-buttons-row">
+                    <label class="btn-primary-sm upload-file-btn">
+                      <input type="file" id="mealFileInput" accept="image/*" capture="environment" hidden>
+                      📸 Snap / Pick Meal Photo
+                    </label>
+                    <button class="btn-secondary-sm" id="startCameraBtn">
+                      🎥 Viewfinder
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Camera Controls when camera is active -->
+                <div class="camera-controls-bar hidden" id="cameraControls">
+                  <button class="btn-secondary-sm" id="cancelCameraBtn">Cancel</button>
+                  <button class="btn-primary-sm snap-btn" id="snapPhotoBtn">📸 Take Photo</button>
+                </div>
+
+                <!-- Scanning animation overlay -->
+                <div class="scanning-laser hidden" id="scanningLaser">
+                  <div class="laser-beam"></div>
+                  <div class="laser-text">AI Neural Analysis in Progress...</div>
+                </div>
+              </div>
+
+              <!-- Preset Demo Meals Gallery -->
+              <div class="presets-gallery-container">
+                <span class="presets-gallery-title">Or Try High-Precision Presets:</span>
+                <div class="presets-carousel" id="presetsCarousel">
+                  <!-- Preset 1 -->
+                  <div class="preset-card active" data-preset="salmon">
+                    <div class="preset-thumb-wrapper">
+                      <img src="assets/salmon_bowl.jpg" alt="Salmon Quinoa Bowl" onerror="this.onerror=null;this.src=SVG_FALLBACKS.salmon;">
+                    </div>
+                    <div class="preset-info">
+                      <span class="preset-name">Salmon Quinoa Bowl</span>
+                      <span class="preset-macros">620 kcal • 44g P</span>
+                    </div>
+                  </div>
+
+                  <!-- Preset 2 -->
+                  <div class="preset-card" data-preset="steak">
+                    <div class="preset-thumb-wrapper">
+                      <img src="assets/steak_potato.jpg" alt="Sirloin Steak & Sweet Potato" onerror="this.onerror=null;this.src=SVG_FALLBACKS.steak;">
+                    </div>
+                    <div class="preset-info">
+                      <span class="preset-name">Sirloin & Sweet Potato</span>
+                      <span class="preset-macros">680 kcal • 52g P</span>
+                    </div>
+                  </div>
+
+                  <!-- Preset 3 -->
+                  <div class="preset-card" data-preset="chicken">
+                    <div class="preset-thumb-wrapper">
+                      <img src="assets/chicken_macro_bowl.jpg" alt="Herb Chicken & Rice" onerror="this.onerror=null;this.src=SVG_FALLBACKS.chicken;">
+                    </div>
+                    <div class="preset-info">
+                      <span class="preset-name">Herb Chicken & Rice</span>
+                      <span class="preset-macros">560 kcal • 54g P</span>
+                    </div>
+                  </div>
+
+                  <!-- Preset 4 -->
+                  <div class="preset-card" data-preset="pancakes">
+                    <div class="preset-thumb-wrapper">
+                      <img src="assets/protein_pancakes.jpg" alt="Oat Protein Pancakes" onerror="this.onerror=null;this.src=SVG_FALLBACKS.pancakes;">
+                    </div>
+                    <div class="preset-info">
+                      <span class="preset-name">Oat Protein Stack</span>
+                      <span class="preset-macros">520 kcal • 42g P</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Scanner Right Col: Analysis & Macros Editor -->
+          <div class="scanner-right-col">
+            <div class="card glass-card vision-analysis-card">
+              <div class="analysis-header-row">
+                <div>
+                  <span class="card-eyebrow">DETECTION RESULTS</span>
+                  <h3 class="analysis-meal-title" id="detectedMealTitle">Grilled Atlantic Salmon Quinoa Bowl</h3>
+                </div>
+                <div class="meal-score-circle" id="mealScoreCircle" title="Physique Alignment Score">
+                  <span class="score-val" id="mealScoreVal">94</span>
+                  <span class="score-sub">Physique</span>
+                </div>
+              </div>
+
+              <!-- Key Macros Summary Chips -->
+              <div class="analysis-macro-chips">
+                <div class="macro-chip">
+                  <span class="chip-label">Calories</span>
+                  <span class="chip-val color-amber" id="detectedTotalKcal">620</span>
+                  <span class="chip-unit">kcal</span>
+                </div>
+                <div class="macro-chip">
+                  <span class="chip-label">Protein</span>
+                  <span class="chip-val color-emerald" id="detectedProtein">44g</span>
+                  <span class="chip-unit">High</span>
+                </div>
+                <div class="macro-chip">
+                  <span class="chip-label">Carbs</span>
+                  <span class="chip-val color-cyan" id="detectedCarbs">42g</span>
+                  <span class="chip-unit">Clean</span>
+                </div>
+                <div class="macro-chip">
+                  <span class="chip-label">Fats</span>
+                  <span class="chip-val color-purple" id="detectedFats">30g</span>
+                  <span class="chip-unit">Omega 3</span>
+                </div>
+              </div>
+
+              <!-- AI Verdict / Satiety & Timing Note -->
+              <div class="ai-verdict-box" id="aiVerdictBox">
+                <div class="verdict-icon">💡</div>
+                <div class="verdict-text" id="aiVerdictText">
+                  Exceptional muscle-building meal. Rich in leucine for MPS (Muscle Protein Synthesis) and healthy omega-3 fats to lower systemic inflammation.
+                </div>
+              </div>
+
+              <!-- Itemized Ingredients Table / Portion Adjuster -->
+              <div class="ingredients-editor-section">
+                <div class="ingredients-header">
+                  <span class="ing-title">Detected Components & Portions</span>
+                  <span class="ing-hint">Adjust sliders if your serving varied</span>
+                </div>
+
+                <div class="ingredients-list" id="detectedIngredientsList">
+                  <!-- Populated by JS -->
+                </div>
+              </div>
+
+              <!-- Meal Type Selector & Logging Action -->
+              <div class="log-action-panel">
+                <div class="form-row-compact">
+                  <label for="mealCategorySelect" class="form-label-compact">Assign to Meal:</label>
+                  <select id="mealCategorySelect" class="custom-select">
+                    <option value="Breakfast">🍳 Breakfast</option>
+                    <option value="Lunch" selected>🥗 Lunch</option>
+                    <option value="Dinner">🥩 Dinner</option>
+                    <option value="Post-Workout">⚡ Post-Workout Fuel</option>
+                    <option value="Snack">🍎 Snack</option>
+                  </select>
+                </div>
+
+                <button class="btn-primary-action btn-large-log" id="btnLogDetectedMeal">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                  <span>Log Meal to Daily Tracker</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 3. PHYSIQUE ARCHITECT ================= -->
+      <section class="tab-pane" id="pane-physique">
+        <div class="physique-container">
+          
+          <!-- Archetype Selection Cards -->
+          <div class="physique-section-header">
+            <span class="card-eyebrow">TARGET PHYSIQUE ARCHETYPE</span>
+            <h2 class="section-h2">Choose Your Physique Blueprint</h2>
+            <p class="section-sub">AuraSculpt recalculates your caloric targets, macro partitions, and training stimulus dynamically.</p>
+          </div>
+
+          <div class="archetypes-grid">
+            <!-- Archetype 1: Clean Hypertrophy -->
+            <div class="card glass-card archetype-card active" data-archetype="hypertrophy">
+              <div class="archetype-badge">Most Popular</div>
+              <div class="archetype-icon">⚔️</div>
+              <h3 class="archetype-name">Clean Athletic Hypertrophy</h3>
+              <p class="archetype-desc">Build dense lean muscle tissue while keeping visceral and subcutaneous body fat strictly minimal.</p>
+              <div class="archetype-stats-pills">
+                <span class="stat-pill">+250 kcal Surplus</span>
+                <span class="stat-pill">2.2g Protein / kg</span>
+                <span class="stat-pill">High Satiety</span>
+              </div>
+              <div class="archetype-footer">
+                <span class="archetype-select-status">Active Blueprint</span>
+              </div>
+            </div>
+
+            <!-- Archetype 2: Fat Loss & Shred -->
+            <div class="card glass-card archetype-card" data-archetype="shred">
+              <div class="archetype-badge badge-burn">Aggressive Cut</div>
+              <div class="archetype-icon">🔥</div>
+              <h3 class="archetype-name">Fat Loss & Razor Shred</h3>
+              <p class="archetype-desc">Accelerate adipose tissue oxidation while shielding lean contractile muscle mass with elevated protein.</p>
+              <div class="archetype-stats-pills">
+                <span class="stat-pill">-500 kcal Deficit</span>
+                <span class="stat-pill">2.4g Protein / kg</span>
+                <span class="stat-pill">Max Definition</span>
+              </div>
+              <div class="archetype-footer">
+                <span class="archetype-select-status">Select Blueprint</span>
+              </div>
+            </div>
+
+            <!-- Archetype 3: Body Recomposition -->
+            <div class="card glass-card archetype-card" data-archetype="recomp">
+              <div class="archetype-badge badge-recomp">Simultaneous</div>
+              <div class="archetype-icon">⚖️</div>
+              <h3 class="archetype-name">Body Recomposition</h3>
+              <p class="archetype-desc">Burn fat and build muscle simultaneously at caloric maintenance with nutrient and carbohydrate cycling.</p>
+              <div class="archetype-stats-pills">
+                <span class="stat-pill">0 kcal Delta</span>
+                <span class="stat-pill">2.3g Protein / kg</span>
+                <span class="stat-pill">Carb Cycling</span>
+              </div>
+              <div class="archetype-footer">
+                <span class="archetype-select-status">Select Blueprint</span>
+              </div>
+            </div>
+
+            <!-- Archetype 4: Strength & Mass Bulk -->
+            <div class="card glass-card archetype-card" data-archetype="strength">
+              <div class="archetype-badge badge-strength">Maximum Mass</div>
+              <div class="archetype-icon">🦍</div>
+              <h3 class="archetype-name">Maximum Strength & Bulk</h3>
+              <p class="archetype-desc">Uncapped muscle hypertrophy, tendon adaptation, and massive progressive strength overload.</p>
+              <div class="archetype-stats-pills">
+                <span class="stat-pill">+550 kcal Surplus</span>
+                <span class="stat-pill">2.0g Protein / kg</span>
+                <span class="stat-pill">Powerlifting Fuel</span>
+              </div>
+              <div class="archetype-footer">
+                <span class="archetype-select-status">Select Blueprint</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio-Metrics Calculator Form & Live Projection -->
+          <div class="physique-calculator-grid">
+            <div class="card glass-card form-card">
+              <div class="card-header-subtle">
+                <span class="card-eyebrow">BIOMETRIC ENGINE</span>
+                <h3 class="card-title">Personal Biometrics & Calibration</h3>
+              </div>
+
+              <form id="physiqueForm" class="physique-calc-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="input-label" for="bioGender">Biological Sex</label>
+                    <select id="bioGender" class="custom-select">
+                      <option value="male" selected>Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label" for="bioAge">Age (years)</label>
+                    <input type="number" id="bioAge" class="custom-input" value="24" min="14" max="90">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="input-label" for="bioHeight">Height (cm)</label>
+                    <input type="number" id="bioHeight" class="custom-input" value="178" min="120" max="230">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label" for="bioWeight">Current Weight (kg)</label>
+                    <input type="number" id="bioWeight" class="custom-input" step="0.5" value="76" min="35" max="220">
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="input-label" for="bioTargetWeight">Target Physique Weight (kg)</label>
+                    <input type="number" id="bioTargetWeight" class="custom-input" step="0.5" value="79" min="35" max="220">
+                  </div>
+                  <div class="form-group">
+                    <label class="input-label" for="bioBodyFat">Estimated Body Fat %</label>
+                    <input type="number" id="bioBodyFat" class="custom-input" value="14" min="5" max="50">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="input-label" for="bioActivity">Weekly Activity Level</label>
+                  <select id="bioActivity" class="custom-select">
+                    <option value="1.2">Sedentary (Desk job, little exercise)</option>
+                    <option value="1.375">Light Activity (1-3 gym sessions/week)</option>
+                    <option value="1.55" selected>Moderate (3-5 intense workouts/week)</option>
+                    <option value="1.725">Very Active (6-7 intense workouts/week)</option>
+                    <option value="1.9">Elite Athlete (2x daily sessions / hard physical work)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="input-label" for="bioWorkoutSplit">Primary Training Focus</label>
+                  <select id="bioWorkoutSplit" class="custom-select">
+                    <option value="ppl" selected>Push / Pull / Legs (6-Day Hypertrophy)</option>
+                    <option value="upper_lower">Upper / Lower Body Split (4-Day)</option>
+                    <option value="full_body">Full Body Strength (3-Day High Intensity)</option>
+                    <option value="bodypart">Classic Muscle Group Split (Chest, Back, Arms, Legs)</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn-primary-action btn-full-width">
+                  ⚡ Recalculate & Apply Physique Targets
+                </button>
+              </form>
+            </div>
+
+            <!-- Calculation Output & Transformation Blueprint -->
+            <div class="card glass-card blueprint-card">
+              <div class="card-header-subtle">
+                <span class="card-eyebrow">COMPUTED TARGETS</span>
+                <span class="status-tag live-tag">Live Dynamic</span>
+              </div>
+
+              <div class="blueprint-primary-stat">
+                <span class="b-stat-eyebrow">Calculated Daily Caloric Intake</span>
+                <div class="b-stat-num-wrapper">
+                  <span class="b-stat-num" id="calcDailyCalories">2,800</span>
+                  <span class="b-stat-unit">kcal / day</span>
+                </div>
+                <span class="b-stat-sub" id="calcSurplusDeficitText">+250 kcal Lean Surplus above 2,550 TDEE</span>
+              </div>
+
+              <!-- Computed Macros Distribution -->
+              <div class="computed-macro-grid">
+                <div class="comp-box protein-border">
+                  <span class="c-label">Protein Target</span>
+                  <span class="c-val" id="calcProtein">190g</span>
+                  <span class="c-sub" id="calcProteinPerKg">2.5g / kg</span>
+                </div>
+                <div class="comp-box carbs-border">
+                  <span class="c-label">Carbs Target</span>
+                  <span class="c-val" id="calcCarbs">280g</span>
+                  <span class="c-sub">Training Glycogen</span>
+                </div>
+                <div class="comp-box fats-border">
+                  <span class="c-label">Fats Target</span>
+                  <span class="c-val" id="calcFats">65g</span>
+                  <span class="c-sub">Hormone Balance</span>
+                </div>
+                <div class="comp-box water-border">
+                  <span class="c-label">Optimal Water</span>
+                  <span class="c-val" id="calcWater">3.5 L</span>
+                  <span class="c-sub">Anabolic Hydration</span>
+                </div>
+              </div>
+
+              <!-- Scientific Physique Roadmap -->
+              <div class="physique-roadmap">
+                <h4 class="roadmap-heading">Transformation Timeline & Training Split</h4>
+                <div class="roadmap-timeline-box" id="calcTimelineBox">
+                  Target: Gain 3.0 kg of lean muscle mass. At a controlled rate of ~0.3 kg/week, your projected target timeline is <strong>10 to 12 weeks</strong>.
+                </div>
+
+                <div class="split-recommendation-box" id="calcSplitAdvice">
+                  <strong>Recommended Split:</strong> Push / Pull / Legs (6-Day Hypertrophy). Prioritize compound movements (Incline Bench, Weighted Pull-Ups, Barbell Squats) with 3-4 RIR (Reps in Reserve).
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 4. METRICS & PROGRESS ================= -->
+      <section class="tab-pane" id="pane-progress">
+        <div class="progress-view-container">
+          
+          <div class="metrics-top-row">
+            <!-- Weight Trend Chart Card -->
+            <div class="card glass-card chart-card">
+              <div class="card-header-subtle">
+                <div>
+                  <span class="card-eyebrow">PHYSIQUE TRAJECTORY</span>
+                  <h3 class="card-title">Weight & Composition Trend</h3>
+                </div>
+                <div class="chart-timeframe-toggles">
+                  <button class="time-btn active" data-range="7">7D</button>
+                  <button class="time-btn" data-range="30">30D</button>
+                  <button class="time-btn" data-range="90">90D</button>
+                </div>
+              </div>
+
+              <!-- SVG Trend Chart Canvas -->
+              <div class="svg-chart-container" id="weightChartContainer">
+                <svg class="trend-chart-svg" id="weightTrendSvg" viewBox="0 0 600 240">
+                  <!-- Rendered dynamically by JS -->
+                </svg>
+              </div>
+
+              <div class="chart-footer-stats">
+                <div class="footer-stat-item">
+                  <span class="f-lbl">Current Weight</span>
+                  <span class="f-val" id="currentLoggedWeight">76.0 kg</span>
+                </div>
+                <div class="footer-stat-item">
+                  <span class="f-lbl">Target Goal</span>
+                  <span class="f-val" id="targetGoalWeight">79.0 kg</span>
+                </div>
+                <div class="footer-stat-item">
+                  <span class="f-lbl">30-Day Rate</span>
+                  <span class="f-val color-emerald">+0.32 kg/wk</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Body Measurements & Log Form -->
+            <div class="card glass-card measurements-card">
+              <div class="card-header-subtle">
+                <span class="card-eyebrow">CIRCUMFERENCE TRACKER</span>
+                <h3 class="card-title">Physique Proportions</h3>
+              </div>
+
+              <div class="measurements-grid">
+                <div class="measure-box">
+                  <span class="m-part">Chest / Shoulders</span>
+                  <span class="m-val" id="dispChest">108 cm</span>
+                  <span class="m-change positive">+2.0 cm</span>
+                </div>
+                <div class="measure-box">
+                  <span class="m-part">Waist (Navel)</span>
+                  <span class="m-val" id="dispWaist">78 cm</span>
+                  <span class="m-change neutral">0.0 cm</span>
+                </div>
+                <div class="measure-box">
+                  <span class="m-part">Arms / Biceps</span>
+                  <span class="m-val" id="dispArms">40.5 cm</span>
+                  <span class="m-change positive">+1.2 cm</span>
+                </div>
+                <div class="measure-box">
+                  <span class="m-part">Thighs / Quads</span>
+                  <span class="m-val" id="dispThighs">62 cm</span>
+                  <span class="m-change positive">+1.5 cm</span>
+                </div>
+              </div>
+
+              <form id="measurementForm" class="quick-measure-form">
+                <div class="form-row-compact">
+                  <input type="number" id="logNewWeight" class="custom-input" placeholder="Today's Wt (kg)" step="0.1">
+                  <button type="submit" class="btn-primary-sm">Log Weight</button>
+                </div>
+              </form>
+
+              <!-- Physique Badges / Milestones -->
+              <div class="milestones-section">
+                <span class="milestone-title">Unlocked Physique Badges:</span>
+                <div class="badges-row">
+                  <div class="badge-item" title="Hit protein target 7 consecutive days">
+                    <span class="badge-emoji">🥩</span>
+                    <span class="badge-name">Protein Beast</span>
+                  </div>
+                  <div class="badge-item" title="Logged 20+ meals with AI Vision">
+                    <span class="badge-emoji">🎯</span>
+                    <span class="badge-name">Vision Prodigy</span>
+                  </div>
+                  <div class="badge-item" title="Consistent hydration above 3L">
+                    <span class="badge-emoji">💧</span>
+                    <span class="badge-name">Hydro Anabolic</span>
+                  </div>
+                  <div class="badge-item" title="Clean Hypertrophy surplus maintained">
+                    <span class="badge-emoji">🏆</span>
+                    <span class="badge-name">Sculpt Master</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Interactive Before / After Physique Visual Comparison -->
+          <div class="card glass-card photo-compare-card">
+            <div class="card-header-subtle">
+              <div>
+                <span class="card-eyebrow">VISUAL COMPOSITION</span>
+                <h3 class="card-title">Before & Current Visual Comparison</h3>
+              </div>
+              <span class="hint-chip">Drag slider to compare transformation</span>
+            </div>
+
+            <div class="split-slider-container" id="sliderContainer">
+              <div class="slider-image-before">
+                <div class="silhouette-box before-bg">
+                  <div class="silhouette-content">
+                    <span class="physique-state-tag">STARTING PHYSIQUE</span>
+                    <span class="physique-date">Day 1 • 72.5 kg • 17% BF</span>
+                    <div class="silhouette-graphic">
+                      <svg viewBox="0 0 100 160" class="physique-svg">
+                        <circle cx="50" cy="20" r="12" fill="#4FACFE" opacity="0.8"/>
+                        <path d="M35 36 C35 36, 25 70, 30 110 L45 155 L55 155 L70 110 C75 70, 65 36, 65 36 Z" fill="#4FACFE" opacity="0.6"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slider-image-after" id="sliderAfter">
+                <div class="silhouette-box after-bg">
+                  <div class="silhouette-content">
+                    <span class="physique-state-tag">CURRENT PHYSIQUE</span>
+                    <span class="physique-date">Day 42 • 76.0 kg • 13.8% BF</span>
+                    <div class="silhouette-graphic">
+                      <svg viewBox="0 0 100 160" class="physique-svg">
+                        <circle cx="50" cy="20" r="12" fill="#00F2FE"/>
+                        <path d="M28 36 C28 36, 20 70, 26 110 L43 155 L57 155 L74 110 C80 70, 72 36, 72 36 Z" fill="#00F2FE" opacity="0.85"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <input type="range" min="0" max="100" value="50" class="comparison-range" id="comparisonSlider" aria-label="Physique comparison slider">
+              <div class="slider-handle-line" id="sliderHandle">
+                <div class="slider-circle">⬌</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 5. AI PHYSIQUE COACH ================= -->
+      <section class="tab-pane" id="pane-coach">
+        <div class="coach-container">
+          <div class="card glass-card coach-chat-card">
+            
+            <div class="coach-chat-header">
+              <div class="coach-profile-col">
+                <div class="coach-main-avatar">⚡</div>
+                <div>
+                  <h3 class="coach-name">Aura AI Physique Coach</h3>
+                  <p class="coach-status">
+                    <span class="online-indicator"></span>
+                    Synchronized with today's logged meals & biometrics
+                  </p>
+                </div>
+              </div>
+
+              <div class="coach-model-tag" id="coachModelIndicator">
+                Mode: Contextual Neural Coach
+              </div>
+            </div>
+
+            <!-- Quick Suggestion Chips -->
+            <div class="coach-chips-row">
+              <button class="coach-prompt-chip" data-prompt="What should I eat tonight to hit my remaining protein target?">
+                🥩 Hit remaining protein tonight
+              </button>
+              <button class="coach-prompt-chip" data-prompt="Analyze today's calories and macros for my Lean Hypertrophy goal.">
+                📊 Evaluate today's nutrition
+              </button>
+              <button class="coach-prompt-chip" data-prompt="What are the best pre-workout meals for maximum muscle pump?">
+                ⚡ Optimal pre-workout timing
+              </button>
+              <button class="coach-prompt-chip" data-prompt="How do I break through a muscle building plateau?">
+                💪 Overcoming hypertrophy plateaus
+              </button>
+            </div>
+
+            <!-- Messages Window -->
+            <div class="coach-messages-window" id="coachMessagesContainer">
+              <!-- Welcome Coach Message -->
+              <div class="chat-message coach-message">
+                <div class="message-bubble">
+                  <p>Welcome back! I am your <strong>Aura AI Physique & Nutrition Coach</strong>. I continuously track your daily food intake, macro distribution, and metabolic targets.</p>
+                  <p>Currently, you have consumed <strong>142g of protein</strong> out of your 190g target. You have <strong>1,120 kcal</strong> remaining for today.</p>
+                  <p>How can I assist your physique transformation right now?</p>
+                </div>
+                <span class="msg-timestamp">Just now</span>
+              </div>
+            </div>
+
+            <!-- Chat Input Area -->
+            <form id="coachChatForm" class="coach-input-form">
+              <div class="chat-input-wrapper">
+                <input type="text" id="coachInputText" class="chat-text-input" placeholder="Ask about meal ideas, macro adjustments, workout nutrient timing..." autocomplete="off">
+                <button type="submit" class="chat-send-btn" id="coachSendBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      <!-- ================= 6. RECOMMENDED WORKOUTS & EXERCISES ================= -->
+      <section class="tab-pane" id="pane-workouts">
+        <div class="workouts-container">
+          
+          <!-- Workout Routine Header -->
+          <div class="card glass-card workout-hero-card">
+            <div class="workout-hero-top">
+              <div>
+                <span class="card-eyebrow">TARGETED EXERCISE PROTOCOL</span>
+                <h2 class="workout-hero-title" id="currentWorkoutDayTitle">Push Day A — Hypertrophic Chest & Delts</h2>
+                <p class="workout-hero-sub" id="currentWorkoutFocus">Calibrated to your <strong id="workoutArchetypeText">Clean Hypertrophy</strong> blueprint for maximum upper-body muscle density.</p>
+              </div>
+
+              <div class="workout-reward-badge" title="Complete routine to earn League Rank Points">
+                <span class="reward-icon">⚡</span>
+                <div class="reward-data">
+                  <span class="reward-pts">+150 RP</span>
+                  <span class="reward-sub">League Points</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Workout Day Switcher Tabs -->
+            <div class="workout-day-tabs" id="workoutDayTabs">
+              <button class="workout-tab-btn active" data-day="push">Push (Chest & Triceps)</button>
+              <button class="workout-tab-btn" data-day="pull">Pull (Back & Biceps)</button>
+              <button class="workout-tab-btn" data-day="legs">Legs (Quads & Hamstrings)</button>
+              <button class="workout-tab-btn" data-day="upper">Upper Strength</button>
+            </div>
+
+            <!-- Rest Timer Bar (Collapsible/Active) -->
+            <div class="rest-timer-bar hidden" id="restTimerBar">
+              <div class="timer-info">
+                <span class="timer-label">⏱️ Rest Interval:</span>
+                <span class="timer-countdown" id="timerCountdown">60s</span>
+              </div>
+              <div class="timer-track">
+                <div class="timer-fill" id="timerFill"></div>
+              </div>
+              <button class="btn-micro-chip" id="stopTimerBtn">Skip</button>
+            </div>
+          </div>
+
+          <!-- Exercises List for the Selected Routine -->
+          <div class="exercises-list" id="exercisesListContainer">
+            <!-- Dynamically populated by JS based on routine -->
+          </div>
+
+          <!-- Complete Workout Action Card -->
+          <div class="card glass-card workout-complete-card">
+            <div class="complete-info-col">
+              <h3>Workout Finished for Today?</h3>
+              <p>Log all completed sets to progress your strength curve and claim <strong>+150 League Rank Points</strong> towards your next tier!</p>
+            </div>
+            <button class="btn-primary-action btn-large-claim" id="btnClaimWorkoutRP">
+              ⚡ Complete Workout & Claim +150 RP
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 7. LEAGUES & RANK PROGRESSION ================= -->
+      <section class="tab-pane" id="pane-leagues">
+        <div class="leagues-container">
+          
+          <!-- Active League Hero Card -->
+          <div class="card glass-card league-active-hero">
+            <div class="league-hero-content">
+              <div class="league-crest-glow" id="activeLeagueCrest">💎</div>
+              <div class="league-hero-details">
+                <div class="league-eyebrow-row">
+                  <span class="card-eyebrow">YOUR CURRENT LEAGUE TIER</span>
+                  <span class="league-status-badge" id="activeLeagueTierBadge">Tier III</span>
+                </div>
+                <h2 class="league-tier-name" id="activeLeagueMainTitle">Diamond League</h2>
+                <p class="league-tier-desc" id="activeLeagueMainDesc">Elite Sculptor • Top 8% of Athletes maintaining disciplined caloric and training consistency.</p>
+                
+                <!-- RP Progress Bar -->
+                <div class="league-xp-wrapper">
+                  <div class="league-xp-labels">
+                    <span class="xp-current" id="leagueXpCurrent">2,450 RP</span>
+                    <span class="xp-next" id="leagueXpNext">Next: Heroic League (3,000 RP)</span>
+                  </div>
+                  <div class="league-xp-track">
+                    <div class="league-xp-fill" id="leagueXpFill" style="width: 81%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Daily RP Earning Missions -->
+            <div class="rp-missions-grid">
+              <div class="mission-item" id="missionMeal">
+                <div class="mission-icon">📸</div>
+                <div class="mission-details">
+                  <span class="mission-name">Click & Log Whole Day Meals</span>
+                  <span class="mission-sub">+50 RP per meal • Track with AI Vision</span>
+                </div>
+                <span class="mission-status-pill done" id="missionMealStatus">+100 RP Earned</span>
+              </div>
+
+              <div class="mission-item" id="missionProtein">
+                <div class="mission-icon">🥩</div>
+                <div class="mission-details">
+                  <span class="mission-name">Hit Daily Protein Goal</span>
+                  <span class="mission-sub">+100 RP • 142g / 190g consumed</span>
+                </div>
+                <span class="mission-status-pill in-progress" id="missionProteinStatus">In Progress</span>
+              </div>
+
+              <div class="mission-item" id="missionWorkout">
+                <div class="mission-icon">🏋️‍♂️</div>
+                <div class="mission-details">
+                  <span class="mission-name">Finish Today's Recommended Routine</span>
+                  <span class="mission-sub">+150 RP • Push Day A</span>
+                </div>
+                <button class="btn-primary-sm btn-mini-mission" onclick="app.switchTab('workouts')">Go to Workout</button>
+              </div>
+
+              <div class="mission-item" id="missionWater">
+                <div class="mission-icon">💧</div>
+                <div class="mission-details">
+                  <span class="mission-name">Achieve Anabolic Hydration</span>
+                  <span class="mission-sub">+30 RP • 2.4L / 3.5L logged</span>
+                </div>
+                <button class="btn-micro-chip" onclick="app.addWater(500)">+500ml</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- The Complete 8-Tier League Ladder -->
+          <div class="league-ladder-section">
+            <div class="section-title-row">
+              <div>
+                <h3 class="section-h2">The Physique League Ladder</h3>
+                <p class="section-sub">Ascend through all 8 leagues by stacking daily consistency, nutrition adherence, and training performance.</p>
+              </div>
+            </div>
+
+            <div class="ladder-grid" id="leagueLadderGrid">
+              <!-- Tier 1: Bronze -->
+              <div class="card glass-card ladder-card unlocked" data-rank="bronze">
+                <div class="ladder-top">
+                  <span class="ladder-icon">🥉</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Bronze League</h4>
+                    <span class="ladder-rp-req">0 - 200 RP</span>
+                  </div>
+                  <span class="ladder-tag unlocked-tag">Unlocked</span>
+                </div>
+                <p class="ladder-desc">Foundational Lifter. Establishing regular daily meal logging and fundamental baseline habits.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Basic Calorie & Macronutrient Tracking</div>
+              </div>
+
+              <!-- Tier 2: Silver -->
+              <div class="card glass-card ladder-card unlocked" data-rank="silver">
+                <div class="ladder-top">
+                  <span class="ladder-icon">🥈</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Silver League</h4>
+                    <span class="ladder-rp-req">201 - 500 RP</span>
+                  </div>
+                  <span class="ladder-tag unlocked-tag">Unlocked</span>
+                </div>
+                <p class="ladder-desc">Dedicated Trainee. Achieving high-consistency protein targets and structured hydration.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Anabolic Water Hydration Engine</div>
+              </div>
+
+              <!-- Tier 3: Gold -->
+              <div class="card glass-card ladder-card unlocked" data-rank="gold">
+                <div class="ladder-top">
+                  <span class="ladder-icon">🥇</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Gold League</h4>
+                    <span class="ladder-rp-req">501 - 1,000 RP</span>
+                  </div>
+                  <span class="ladder-tag unlocked-tag">Unlocked</span>
+                </div>
+                <p class="ladder-desc">Consistent Athlete. Reliable pre & post workout nutrition timing and weekly progressive overload.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Nutrient Timing & Bodyweight Trajectory Forecasts</div>
+              </div>
+
+              <!-- Tier 4: Platinum -->
+              <div class="card glass-card ladder-card unlocked" data-rank="platinum">
+                <div class="ladder-top">
+                  <span class="ladder-icon">💠</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Platinum League</h4>
+                    <span class="ladder-rp-req">1,001 - 1,800 RP</span>
+                  </div>
+                  <span class="ladder-tag unlocked-tag">Unlocked</span>
+                </div>
+                <p class="ladder-desc">Hypertrophy Specialist. Visible muscle definition and precise macronutrient partitioning.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Advanced Progressive Overload & RPE Set Tracker</div>
+              </div>
+
+              <!-- Tier 5: Diamond (Active) -->
+              <div class="card glass-card ladder-card current-rank" data-rank="diamond">
+                <div class="ladder-top">
+                  <span class="ladder-icon">💎</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Diamond League</h4>
+                    <span class="ladder-rp-req">1,801 - 3,000 RP</span>
+                  </div>
+                  <span class="ladder-tag current-tag">Active Tier</span>
+                </div>
+                <p class="ladder-desc">Elite Sculptor. Highly sculpted physique with under 14% body fat and superior dietary mastery.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Before vs Current Visual Silhouette Split & Leucine MPS Audit</div>
+              </div>
+
+              <!-- Tier 6: Heroic -->
+              <div class="card glass-card ladder-card locked" data-rank="heroic">
+                <div class="ladder-top">
+                  <span class="ladder-icon">🔥</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Heroic League</h4>
+                    <span class="ladder-rp-req">3,001 - 4,800 RP</span>
+                  </div>
+                  <span class="ladder-tag locked-tag">550 RP Needed</span>
+                </div>
+                <p class="ladder-desc">Unstoppable Physique. Laser-focus conditioning, advanced vascularity, and high metabolic capacity.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Peak Week Carbohydrate Cycling & Thermogenic Optimizer</div>
+              </div>
+
+              <!-- Tier 7: Legend -->
+              <div class="card glass-card ladder-card locked" data-rank="legend">
+                <div class="ladder-top">
+                  <span class="ladder-icon">👑</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Legend League</h4>
+                    <span class="ladder-rp-req">4,801 - 7,000 RP</span>
+                  </div>
+                  <span class="ladder-tag locked-tag">2,350 RP Needed</span>
+                </div>
+                <p class="ladder-desc">Master of Aesthetics. Pinnacle proportions, symmetry, and elite year-round adherence.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Unlimited VIP AI Sports Scientist Coaching Engine</div>
+              </div>
+
+              <!-- Tier 8: Grandmaster -->
+              <div class="card glass-card ladder-card locked" data-rank="grandmaster">
+                <div class="ladder-top">
+                  <span class="ladder-icon">🔮</span>
+                  <div class="ladder-rank-meta">
+                    <h4 class="ladder-rank-name">Grandmaster League</h4>
+                    <span class="ladder-rp-req">7,000+ RP</span>
+                  </div>
+                  <span class="ladder-tag locked-tag">4,550 RP Needed</span>
+                </div>
+                <p class="ladder-desc">Pinnacle of Human Conditioning. Legendary status held only by the most dedicated athletes.</p>
+                <div class="ladder-perk"><strong>Perk:</strong> Grandmaster Crest, Golden Trophy Badge & Infinite Prestige</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ================= MOBILE BOTTOM NAVIGATION (PHONES) ================= -->
+    <nav class="mobile-bottom-nav">
+      <button class="mobile-nav-btn active" data-tab="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+        <span>Dashboard</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="scanner">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <span>Scan Meal</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="workouts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5l11 11M4 9l2-2 3 3-2 2-3-3zm11 11l2-2 3 3-2 2-3-3zM3 18l3-3M18 3l3 3"/></svg>
+        <span>Workouts</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="leagues">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.45 1-1 1H8v2h8v-2h-1c-.55 0-1-.45-1-1v-2.34c2.84-.48 5-2.94 5-5.96V4H6v4.7c0 3.02 2.16 5.48 5 5.96z"/></svg>
+        <span>Leagues</span>
+      </button>
+      <button class="mobile-nav-btn" data-tab="coach">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Coach</span>
+      </button>
+    </nav>
+
+    <!-- ================= SETTINGS & API MODAL ================= -->
+    <div class="modal-backdrop hidden" id="settingsModal">
+      <div class="modal-dialog glass-card">
+        <div class="modal-header">
+          <h3 class="modal-title">Settings & AI Vision Configuration</h3>
+          <button class="modal-close-btn" id="closeSettingsBtn">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Gemini API Key Section -->
+          <div class="settings-section">
+            <h4 class="settings-h4">Google Gemini Vision API (Optional)</h4>
+            <p class="settings-p">
+              The application comes with a built-in intelligent Food Recognition Engine and instant demo presets. To enable <strong>unlimited live custom photos analyzed directly by Gemini Vision</strong>, enter your Gemini API Key below.
+            </p>
+
+            <div class="form-group">
+              <label class="input-label" for="geminiApiKeyInput">Gemini API Key</label>
+              <div class="password-input-wrapper">
+                <input type="password" id="geminiApiKeyInput" class="custom-input" placeholder="AIzaSy...">
+                <button type="button" class="btn-micro-eye" id="toggleApiKeyVisibility">👁️</button>
+              </div>
+              <span class="input-note">Stored locally in your browser (never transmitted to third-party servers).</span>
+            </div>
+
+            <div class="form-group">
+              <label class="input-label" for="geminiModelSelect">Gemini Vision Model</label>
+              <select id="geminiModelSelect" class="custom-select">
+                <option value="gemini-1.5-flash" selected>gemini-1.5-flash (Fast & Accurate for Food)</option>
+                <option value="gemini-1.5-pro">gemini-1.5-pro (Deep Multimodal Reasoning)</option>
+                <option value="gemini-2.0-flash-exp">gemini-2.0-flash-exp (Experimental Next-Gen)</option>
+              </select>
+            </div>
+
+            <div class="api-actions-row">
+              <button class="btn-secondary-sm" id="testApiConnectionBtn">Test Connection</button>
+              <span class="api-status-text" id="apiStatusDisplay">Not verified</span>
+            </div>
+          </div>
+
+          <!-- Units & Data Management -->
+          <div class="settings-section">
+            <h4 class="settings-h4">Measurement Units</h4>
+            <div class="form-row">
+              <label class="radio-label">
+                <input type="radio" name="unitSystem" value="metric" checked> Metric (kg, cm, kcal)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="unitSystem" value="imperial"> Imperial (lbs, in, kcal)
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h4 class="settings-h4">Data Management</h4>
+            <div class="data-mgmt-btns">
+              <button class="btn-secondary-sm" id="exportDataBtn">Export Profile & Meals JSON</button>
+              <button class="btn-secondary-sm btn-danger" id="resetAllDataBtn">Factory Reset All Data</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-primary-action" id="saveSettingsBtn">Save & Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manual Meal Modal -->
+    <div class="modal-backdrop hidden" id="manualMealModal">
+      <div class="modal-dialog glass-card">
+        <div class="modal-header">
+          <h3 class="modal-title">Log Meal Manually</h3>
+          <button class="modal-close-btn" id="closeManualMealBtn">✕</button>
+        </div>
+
+        <form id="manualMealForm" class="modal-body">
+          <div class="form-group">
+            <label class="input-label" for="manualMealName">Meal Name</label>
+            <input type="text" id="manualMealName" class="custom-input" placeholder="e.g., Grilled Chicken & Sweet Potato" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="input-label" for="manualMealCategory">Meal Type</label>
+              <select id="manualMealCategory" class="custom-select">
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch" selected>Lunch</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Post-Workout">Post-Workout</option>
+                <option value="Snack">Snack</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="input-label" for="manualCalories">Calories (kcal)</label>
+              <input type="number" id="manualCalories" class="custom-input" placeholder="e.g. 550" required min="10">
+            </div>
+          </div>
+
+          <div class="form-row-3">
+            <div class="form-group">
+              <label class="input-label" for="manualProtein">Protein (g)</label>
+              <input type="number" id="manualProtein" class="custom-input" placeholder="45" required min="0">
+            </div>
+            <div class="form-group">
+              <label class="input-label" for="manualCarbs">Carbs (g)</label>
+              <input type="number" id="manualCarbs" class="custom-input" placeholder="50" required min="0">
+            </div>
+            <div class="form-group">
+              <label class="input-label" for="manualFats">Fats (g)</label>
+              <input type="number" id="manualFats" class="custom-input" placeholder="15" required min="0">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="submit" class="btn-primary-action btn-full-width">+ Log to Today</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= GOOGLE PLAY STORE & DEPLOYMENT MODAL ================= -->
+    <div class="modal-backdrop hidden" id="publishModal">
+      <div class="modal-dialog glass-card modal-large">
+        <div class="modal-header">
+          <div class="modal-title-with-icon">
+            <span class="play-store-large-badge">▶</span>
+            <div>
+              <h3 class="modal-title">Publish to Google Play Store & Deploy Live</h3>
+              <p class="modal-sub">Launch AuraSculpt AI publicly on the web and packaging for Android Play Store</p>
+            </div>
+          </div>
+          <button class="modal-close-btn" id="closePublishBtn">✕</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Step 1: Instant Phone PWA Installation -->
+          <div class="deploy-card highlight-step">
+            <div class="deploy-step-badge">METHOD 1: INSTANT INSTALL (RECOMMENDED)</div>
+            <h4>📲 Install as Native Android App (Without waiting for Play Store Review)</h4>
+            <p>Your app is already configured as a fully compliant <strong>Progressive Web App (PWA)</strong> with an offline Service Worker and Play Store Manifest.</p>
+            <div class="install-instructions-box">
+              <ol class="step-list">
+                <li>Open this app on your Android phone's Google Chrome.</li>
+                <li>Tap the <strong>"📲 Install App"</strong> button in the top bar (or tap Chrome's 3-dot menu ⋮ > <em>"Install app"</em> or <em>"Add to Home Screen"</em>).</li>
+                <li>AuraSculpt AI installs directly onto your phone screen with its own app icon, splash screen, and full native screen access!</li>
+              </ol>
+            </div>
+            <button class="btn-primary-action" id="modalInstallAppBtn">📲 Install App on This Device Now</button>
+          </div>
+
+          <!-- Step 2: Public HTTPS Cloud Deployment -->
+          <div class="deploy-card">
+            <div class="deploy-step-badge">METHOD 2: PUBLIC CLOUD DEPLOYMENT (FREE & PERMANENT)</div>
+            <h4>🌐 Deploy to Free Public HTTPS (GitHub Pages or Vercel)</h4>
+            <p>Google Play Store requires your app to have a live public HTTPS address. You can deploy this exact folder in 60 seconds:</p>
+            
+            <div class="cloud-options-grid">
+              <div class="cloud-option-card">
+                <h5>Option A: Vercel / Netlify (Fastest)</h5>
+                <ol class="mini-steps">
+                  <li>Go to <a href="https://vercel.com" target="_blank" rel="noopener">vercel.com</a> or <a href="https://netlify.com" target="_blank" rel="noopener">netlify.com</a></li>
+                  <li>Drag & drop this project folder (`new project'`) onto their dashboard.</li>
+                  <li>Your app goes live instantly at <code>https://aurasculpt.vercel.app</code> with free automatic HTTPS!</li>
+                </ol>
+              </div>
+
+              <div class="cloud-option-card">
+                <h5>Option B: GitHub Pages</h5>
+                <ol class="mini-steps">
+                  <li>Push this folder to a GitHub repository.</li>
+                  <li>Go to <strong>Settings > Pages</strong> > select <strong>main branch</strong> > Save.</li>
+                  <li>Your app is hosted live at <code>https://&lt;username&gt;.github.io/&lt;repo&gt;/</code>.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Google Play Store AAB Bundle Generation -->
+          <div class="deploy-card">
+            <div class="deploy-step-badge">STEP 3: OFFICIAL GOOGLE PLAY STORE SUBMISSION</div>
+            <h4>📦 Convert Live URL to Signed Google Play (.aab) Package</h4>
+            <p>Google and Microsoft provide the official, free <strong>PWABuilder</strong> tool that packages this app directly into an Android App Bundle (.aab):</p>
+            
+            <div class="playstore-guide-box">
+              <ol class="step-list">
+                <li>Visit <a href="https://www.pwabuilder.com" target="_blank" rel="noopener"><strong>PWABuilder.com</strong></a> (Google & Microsoft official).</li>
+                <li>Enter your live HTTPS URL from Step 2 and click <strong>Start</strong>.</li>
+                <li>Click <strong>Package for Android</strong> (Google Play). It generates your signed <code>.aab</code> package and Digital Asset Links.</li>
+                <li>Log in to your <a href="https://play.google.com/console" target="_blank" rel="noopener"><strong>Google Play Console</strong></a> ($25 one-time registration).</li>
+                <li>Create a new app listing, upload the generated <code>.aab</code> file, and click <strong>Submit for Review</strong>!</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn-secondary-sm" id="closePublishFooterBtn">Done / Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SHARE DAILY FLEX STORY CARD MODAL ================= -->
+    <div class="modal-backdrop hidden" id="storyModal">
+      <div class="modal-dialog glass-card story-dialog">
+        <div class="modal-header">
+          <h3 class="modal-title">Today's Physique Flex Card</h3>
+          <button class="modal-close-btn" id="closeStoryBtn">✕</button>
+        </div>
+
+        <div class="modal-body story-body">
+          <div class="story-preview-wrapper" id="storyPreviewWrapper">
+            <!-- Canvas renders high-res 9:16 Instagram/WhatsApp Story -->
+            <canvas id="storyCanvas" width="540" height="960" class="story-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="modal-footer story-footer">
+          <button class="btn-primary-action btn-full-width" id="downloadStoryBtn">
+            📥 Save Story Image (.PNG)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div class="toast-notification hidden" id="toastNotification">
+      <span class="toast-icon">✓</span>
+      <span class="toast-message" id="toastMessage">Meal successfully logged!</span>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

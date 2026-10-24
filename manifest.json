@@ -1,0 +1,47 @@
+{
+  "id": "/?source=pwa",
+  "name": "AuraSculpt AI — Vision Calorie & Physique Coach",
+  "short_name": "AuraSculpt",
+  "description": "AI-powered meal vision calorie tracker, personalized workout architect, and gamified physique transformation leagues.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0A0D14",
+  "theme_color": "#00F2FE",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "en",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "categories": ["fitness", "health", "lifestyle", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Scan Meal",
+      "url": "./index.html#scanner",
+      "description": "Snap a photo of your meal"
+    },
+    {
+      "name": "Today's Workouts",
+      "url": "./index.html#workouts",
+      "description": "View recommended exercise routine"
+    }
+  ]
+}
